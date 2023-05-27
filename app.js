@@ -58,7 +58,7 @@ function init() {
 
     // Create controls
     controls = new THREE.TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 5.0;
+    controls.rotateSpeed = 25.0;
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
     controls.noZoom = false;
@@ -148,7 +148,7 @@ cameraToggle.addEventListener('change', function() {
 
     // Update controls to new camera
 	controls = new THREE.TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 0.5; // Increase rotation speed
+    controls.rotateSpeed = 25.5; // Increase rotation speed
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
     controls.noZoom = false;
