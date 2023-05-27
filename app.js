@@ -1,5 +1,5 @@
 let container, camera, scene, renderer, controls, pointLight;
-let models = ['propane1.glb', 'propane2.glb', 'propane3.glb']; //add your 3d model files here
+let models = ['public/propane1.glb', 'public/propane2.glb', 'public/propane3.glb']; //add your 3d model files here
 let currentModel = null;
 let loader = new THREE.GLTFLoader();
 
