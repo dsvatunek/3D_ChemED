@@ -1,0 +1,141 @@
+let container, camera, scene, renderer, controls, pointLight;
+let models = ['propane1.glb', 'propane2.glb', 'propane3.glb']; //add your 3d model files here
+let currentModel = null;
+let loader = new THREE.GLTFLoader();
+
+init();
+animate();
+
+function init() {
+    container = document.getElementById('container');
+
+	// Create Perspective camera
+	perspectiveCamera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+	perspectiveCamera.position.z = 2;
+	
+	// Create Orthographic camera
+	const aspect = container.clientWidth / container.clientHeight;
+	const frustumSize = 3;
+	orthographicCamera = new THREE.OrthographicCamera(frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, -1000, 1000);
+	
+	// Use perspective camera initially
+	camera = perspectiveCamera;
+	
+	// Add event listener for window resize
+	window.addEventListener('resize', function() {
+		const aspect = container.clientWidth / container.clientHeight;
+	
+		perspectiveCamera.aspect = aspect;
+		perspectiveCamera.updateProjectionMatrix();
+	
+		orthographicCamera.left = frustumSize * aspect / - 2;
+		orthographicCamera.right = frustumSize * aspect / 2;
+		orthographicCamera.updateProjectionMatrix();
+	
+		renderer.setSize(container.clientWidth, container.clientHeight);
+	});
+
+    // Create scene
+    scene = new THREE.Scene();
+
+    // Create renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+	
+	
+	let light = new THREE.AmbientLight(0xffffff,0.2); // soft white light
+	scene.add(light);
+	
+	// Create a point light
+	pointLight = new THREE.PointLight(0xffffff, 1);
+	pointLight.position.set(5, 5, 5); // Position the light
+	// Add the light to the scene
+	scene.add(pointLight);
+	scene.add(camera);
+
+    // Create controls
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.enableZoom = true;
+	
+	// Remove vertical orbit limit
+	controls.minPolarAngle = -1000; // radians; 0 by default
+	controls.maxPolarAngle = 1000; // radians; Math.PI by default
+
+    // Load initial model
+    loadModel(models[0]);
+
+    // Handle slider change
+    document.getElementById('model-slider').addEventListener('input', function(e) {
+        let modelIndex = e.target.value;
+        loadModel(models[modelIndex]);
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', onWindowResize, false);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (controls) controls.update();
+    
+    // Make the light follow the camera
+    pointLight.position.copy(camera.position);
+
+    renderer.render(scene, camera);
+}
+
+
+function loadModel(model) {
+    if (currentModel) {
+        // Remove previous model
+        scene.remove(currentModel);
+    }
+
+    loader.load(model, function(gltf) {
+        currentModel = gltf.scene;
+		currentModel.scale.set(0.6, 0.6, 0.6);
+        scene.add(currentModel);
+    }, undefined, function(error) {
+        console.error(error);
+    });
+}
+
+function onWindowResize() {
+    const aspect = container.clientWidth / container.clientHeight;
+	
+    perspectiveCamera.aspect = aspect;
+    perspectiveCamera.updateProjectionMatrix();
+	
+    orthographicCamera.left = frustumSize * aspect / - 2;
+    orthographicCamera.right = frustumSize * aspect / 2;
+    orthographicCamera.updateProjectionMatrix();
+	
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+
+const cameraToggle = document.getElementById('camera-toggle');
+
+cameraToggle.addEventListener('change', function() {
+    if (this.checked) {
+        // Switch to orthographic camera
+        camera = orthographicCamera;
+        // Update orthographic camera's position to match perspective camera
+        camera.position.copy(perspectiveCamera.position);
+    } else {
+        // Switch back to perspective camera
+        camera = perspectiveCamera;
+    }
+    // Update controls to new camera
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.enableZoom = true;
+
+    // Set the rotation limits
+	controls.minPolarAngle = -1000; // radians; 0 by default
+	controls.maxPolarAngle = 1000; // radians; Math.PI by default
+});
