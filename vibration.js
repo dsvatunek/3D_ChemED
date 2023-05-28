@@ -8,7 +8,7 @@ $.get("public/vibration.xyz", function(data) {
 
     viewer.setBackgroundColor(0x000000);
     viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
-
+	viewer.rotate(90, {x: 1, y: 0, z: 0});	
     viewer.zoomTo();
     viewer.zoom(1.8);
 
