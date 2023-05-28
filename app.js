@@ -1,5 +1,5 @@
 let container, camera, scene, renderer, controls, pointLight;
-let models = ['public/equatorial.glb', 'public/axial.glb']; //add your 3d model files here
+let models = ['public/suzanne_1.glb', 'public/suzanne_2.glb']; //add your 3d model files here
 let currentModel = null;
 let loader = new THREE.GLTFLoader();
 
@@ -46,7 +46,7 @@ function init() {
 	controlsPerspective = new THREE.TrackballControls(perspectiveCamera, renderer.domElement);
 	controlsOrthographic = new THREE.TrackballControls(orthographicCamera, renderer.domElement);
     
-    let light = new THREE.AmbientLight(0xffffff,0.2); // soft white light
+    let light = new THREE.AmbientLight(0xffffff,0.5); // soft white light
     scene.add(light);
     
     // Create a point light
@@ -101,7 +101,7 @@ function loadModel(model) {
 
     loader.load(model, function(gltf) {
         currentModel = gltf.scene;
-        currentModel.scale.set(0.4, 0.4, 0.4);
+        currentModel.scale.set(0.8, 0.8, 0.8);
         scene.add(currentModel);
     }, undefined, function(error) {
         console.error(error);
@@ -148,7 +148,7 @@ cameraToggle.addEventListener('change', function() {
 
     // Update controls to new camera
 	controls = new THREE.TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 0.5; // Increase rotation speed
+    controls.rotateSpeed = 5.5; // Increase rotation speed
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
     controls.noZoom = false;
@@ -163,8 +163,8 @@ const dynamicText = document.getElementById("dynamic-text");
 
 // Define the text values based on the slider positions
 const textOptions = [
-    "EQUATORIAL",
-    "AXIAL",
+    "Suzanne shiny",
+    "Suzanne rough",
     // Add more text options for other slider positions
 ];
 
