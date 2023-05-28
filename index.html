@@ -21,7 +21,7 @@
 		<hr>	
 
         <h2>Tech Demo 2 &ndash; Interactive Quiz </h2>
-		<p style=”color:red”>Click on the most basic atom!</p>
+		<p style=”color:red”>Click on the most basic atom!<br>((Might not work correctly on phones yet)</p>
 		<div id="Quiz" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
 		<hr>
 
@@ -37,7 +37,12 @@
 		<div id="bio" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>	
 		<hr>
 		
-		<h2>Tech Demo 5 &ndash; Custom 3D Models</h2>
+		<h2>Tech Demo 5 &ndash; Vibrations </h2>
+		<p>T2 stretch vibration of methane.</p>
+		<div id="vibration" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>	
+		<hr>
+		
+		<h2>Tech Demo 6 &ndash; Custom 3D Models</h2>
 		<p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
         Realized by using three.js and glTF models. All kinds of models, e.g., lab equipment, possible. It is also possible to change the text depending on the displayed model.</p>
 
@@ -59,6 +64,7 @@
     <script src="GLTFLoader.js"></script>
     <script src="app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="vibration.js"></script>
 	
 
     <script>
@@ -172,6 +178,7 @@
 		$3Dmol.download('pdb:1ABC', viewer, {}, function() {
 			// Visualize the protein with a cartoon representation
 			viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
+			viewer.setBackgroundColor(0xd3d3d3);
 			// Add a transparent surface
 			viewer.addSurface($3Dmol.SurfaceType.VDW, {
 				opacity:0.5,
