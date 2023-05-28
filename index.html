@@ -13,7 +13,15 @@
         <p>Tech demo for rotateable and interactive elements using different solutions.</p>
 		<hr>
 		<h2>Tech Demo 1</h2>
-        <p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
+	<p>Dynamic reaction coordinate of the fluoride + ethylchloride SN2 reaction. Made using 3Dmol.js. Can be expanded with labels, custom text based on the current frame, and even graphs that follow the current frames.</p>
+        <div id="IRC" class="mol_container" style="height: 500px; width: 790px; position: relative"></div>
+		<div id="frameText"></div>
+        <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider" oninput="step_frame(this, 'IRC');" style="width: 400px;">
+	<img src="public/slider.png" alt="use the slider to advance the reaction" width="400"/>
+        
+		<hr>		
+        <h2>Tech Demo 2</h2>
+	<p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
         Realized by using three.js and glTF models. All kinds of models, e.g., lab equipment, possible. It is also possible to change the text depending on the displayed model.</p>
 
         <div id="container"></div>
@@ -25,13 +33,6 @@
             <input id="camera-toggle" type="checkbox"> 
             <label for="camera-toggle"><p>Switch to Orthographic Camera</p></label>
         </div>
-		<hr>		
-        <h2>Tech Demo 2</h2>
-        <p>Dynamic reaction coordinate of the fluoride + ethylchloride SN2 reaction.</p>
-        <div id="IRC" class="mol_container" style="height: 500px; width: 790px; position: relative"></div>
-		<div id="frameText"></div>
-        <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider" oninput="step_frame(this, 'IRC');" style="width: 400px;">
-		<img src="public/slider.png" alt="use the slider to advance the reaction" width="400"/>
 		<hr>
         <p>Please be aware that the website layout is not indicative of a final version. It's just a tech demo.</p>
     </div>
