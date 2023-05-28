@@ -1,5 +1,5 @@
 let container, camera, scene, renderer, controls, pointLight;
-let models = ['public/propane1.glb', 'public/propane2.glb', 'public/propane3.glb']; //add your 3d model files here
+let models = ['public/equatorial.glb', 'public/axial.glb']; //add your 3d model files here
 let currentModel = null;
 let loader = new THREE.GLTFLoader();
 
@@ -58,7 +58,7 @@ function init() {
 
     // Create controls
     controls = new THREE.TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 25.0;
+    controls.rotateSpeed = 5.0;
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
     controls.noZoom = false;
@@ -101,7 +101,7 @@ function loadModel(model) {
 
     loader.load(model, function(gltf) {
         currentModel = gltf.scene;
-        currentModel.scale.set(0.6, 0.6, 0.6);
+        currentModel.scale.set(0.4, 0.4, 0.4);
         scene.add(currentModel);
     }, undefined, function(error) {
         console.error(error);
@@ -148,7 +148,7 @@ cameraToggle.addEventListener('change', function() {
 
     // Update controls to new camera
 	controls = new THREE.TrackballControls(camera, renderer.domElement);
-    controls.rotateSpeed = 25.5; // Increase rotation speed
+    controls.rotateSpeed = 0.5; // Increase rotation speed
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
     controls.noZoom = false;
@@ -157,3 +157,25 @@ cameraToggle.addEventListener('change', function() {
     controls.dynamicDampingFactor = 0.3;
 });
 
+// Get the necessary elements
+const slider = document.getElementById("model-slider");
+const dynamicText = document.getElementById("dynamic-text");
+
+// Define the text values based on the slider positions
+const textOptions = [
+    "EQUATORIAL",
+    "AXIAL",
+    // Add more text options for other slider positions
+];
+
+// Function to update the text based on the slider position
+function updateText() {
+    const sliderValue = parseInt(slider.value);
+    dynamicText.textContent = textOptions[sliderValue];
+}
+
+// Listen for changes in the slider value
+slider.addEventListener("input", updateText);
+
+// Initial text update
+updateText();
