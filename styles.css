@@ -1,53 +1,82 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: white;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     min-height: 100vh;
+	flex-direction: column; 
 }
 
-#stripe {
+.stripe {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+	align-items: flex-start;
     align-items: center;
     width: 800px;
     background-color: white;
-    padding: 20px;
+    padding: 2px;
     box-sizing: border-box;
+    text-align: left; /* Left-align text by default */
 }
 
-#content {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
+.stripe hr {
+  height: 3px;
+  background-color: #000000;
+  border: none;
+  margin: 20px 0;
+  width: 100%; /* Adjust the width to make it wider */
+}
+
+
+h1, h2, h3, p, blockquote, pre {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 h1, h2 {
-    margin: 0;
-    font-size: 24px; /* Increase the font size */
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26.4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+	text-align: center;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 19.4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+	text-align: center;
+}
+
+p {
+    font-size: 18px;
+    font-weight: 400; /* Regular weight, not bold */
+    line-height: 21px;
+	text-align: left;
+	width: 800px;
+}
+
+blockquote {
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+pre {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18.5714px;
 }
 
 #container {
     width: 800px;
     height: 500px;
     background-color: #ccc;
-}
-
-#text-container {
-    width: 760px; /* Set the width to match the first text block */
-    margin-bottom: 20px;
-}
-
-#model-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 #model-slider-container {
@@ -57,14 +86,87 @@ h1, h2 {
 
 .checkbox-container {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-#camera-toggle {
-    margin-right: 5px;
+.checkbox-container p {
+    /* Add your desired styles for the label here */
+    /* For example: */
+    text-align: left;
+	width: 100%; 	
 }
 
-.text-block {
-    text-align: left;
-    font-size: 18px; /* Increase the font size */
+#camera-toggle {
+    margin-left: auto;
 }
+
+#dynamic-text {
+  margin-top: 15px;
+  margin-bottom: 0px;
+  padding: 0px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+
+
+
+
+/*slider*/
+
+/* The slider itself */
+input[type=range] {
+    -webkit-appearance: none; /* This removes the default styling in Webkit-based browsers */
+    width: 100%; /* Make it take up all available width */
+    height: 5px; /* Set a fixed height */
+    background: #000000; /* Grey background */
+    outline: none; /* Remove the blue outline that appears on focus in some browsers */
+    opacity: 1; /* Partial transparency */
+    transition: opacity .2s; /* Transition effect when you hover over it */
+    border-radius: 12px; /* Rounded edges */
+	margin: 20px 0%;
+}
+
+/* The slider handle (thumb) */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px; /* Set a fixed width */
+    height: 25px; /* Set a fixed height */
+    background: #007F80; /* Green background */
+    cursor: pointer; /* Cursor changes to a hand */
+    border-radius: 50%; /* Circular shape */
+	
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #007F80;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Change the thumb color on hover */
+input[type=range]::-webkit-slider-thumb:hover {
+    background:#007F80; /* Darker green */
+}
+
+input[type=range]::-moz-range-thumb:hover {
+    background: #007F80;
+}
+
+/* Remove the track */
+input[type=range]::-webkit-slider-runnable-track {
+    background: none;
+}
+
+input[type=range]::-moz-range-track {
+    background: none;
+}
+
+input[type=range]::-ms-track {
+    background: none;
+}
+
