@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>3D Model Viewer</title>
+    <title>Tech Demonstration</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,16 +12,28 @@
         <h3><a href="https://www.dsvatunek.com/">dsvatunek.com</a></h3>
         <p>Tech demo for rotateable and interactive elements using different solutions.</p>
 		<hr>
-		<h2>Tech Demo 1</h2>
-	<p>Dynamic reaction coordinate of the fluoride + ethylchloride SN2 reaction. Made using 3Dmol.js. Can be expanded with labels, custom text based on the current frame, and even graphs that follow the current frames.</p>
-        <div id="IRC" class="mol_container" style="height: 500px; width: 790px; position: relative"></div>
+		<h2>Tech Demo 1 &ndash Reaction Coordinate</h2>
+		<p>Dynamic reaction coordinate of the fluoride + ethylchloride SN2 reaction. Made using 3Dmol.js. Can be expanded with labels, custom text based on the current frame, and even graphs that follow the current frames.</p>
+        <div id="IRC" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
 		<div id="frameText"></div>
         <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider" oninput="step_frame(this, 'IRC');" style="width: 400px;">
-	<img src="public/slider.png" alt="use the slider to advance the reaction" width="400"/>
-        
-		<hr>		
-        <h2>Tech Demo 2</h2>
-	<p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
+		<img src="public/slider.png" alt="use the slider to advance the reaction" width="400"/>
+		<hr>	
+
+        <h2>Tech Demo 2 &ndash Interactive Quiz </h2>
+		<p style=”color:red”>Click on the most basic atom!</p>
+		<div id="Quiz" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
+		<hr>
+
+		
+        <h2>Tech Demo 3 &ndash Orbitals </h2>
+		<p>The following shows the LUMO of butadiene.</p>
+		<div id="Orbital" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
+		<hr>
+		
+		
+		<h2>Tech Demo 4 &ndash Custom 3D Models</h2>
+		<p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
         Realized by using three.js and glTF models. All kinds of models, e.g., lab equipment, possible. It is also possible to change the text depending on the displayed model.</p>
 
         <div id="container"></div>
@@ -42,6 +54,8 @@
     <script src="GLTFLoader.js"></script>
     <script src="app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+
     <script>
 	
 	var widgets = {};
@@ -52,7 +66,6 @@
         viewer.setFrame(frameNum);
         viewer.render();
     }
-	
 	
 	$(document).ready(function(){
 		$.get("public/IRC.xyz", function(data) {
@@ -80,6 +93,74 @@
 		});
 	}); 
 	</script>
+	
+
+	<script>
+	
+	var widgets = {};
+	
+	$(document).ready(function(){
+		$.get("public/butadiene_LUMO.cube", function(data) {
+		    var viewer = $3Dmol.createViewer("Orbital");
+			var m = viewer.addModel(data, "cube");
+			viewer.addModel(data, "cube");
+			viewer.setBackgroundColor(0x000000);
+			viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+			
+			var data = new $3Dmol.VolumeData(data, "cube");
+			viewer.addIsosurface(data, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
+			viewer.addIsosurface(data, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
+					
+					
+					
+			viewer.zoomTo();
+			viewer.zoom(1.8);
+			viewer.rotate(-45, {x: 0, y: 1, z: 0});		
+			viewer.rotate(90, {x: 1, y: 0, z: 0});			
+			viewer.render();
+			
+			widgets["Orbital"] = viewer;
+		});
+	}); 
+	</script>
+	
+	<script>
+	var widgets = {};
+
+	$(document).ready(function() {
+		$.get("public/quiz.xyz", function(data) {
+			var viewer = $3Dmol.createViewer("Quiz");
+			viewer.addModel(data, "xyz");
+			viewer.setBackgroundColor(0x000000);
+
+			// 'correctAtomSerial' should be replaced with the serial number of the atom START COUNTING AT 0!!!! 
+			var correctAtomSerial =19;
+			viewer.setStyle({}, {
+				stick: {radius: 0.15},
+				sphere: {scale: 0.25},
+			});
+
+			viewer.setClickable({}, true, function(atom, viewer) {
+				if (atom.serial === correctAtomSerial) {
+					viewer.setBackgroundColor(0x228B22); // green
+				} else {
+					viewer.setBackgroundColor(0xBF0000); // red
+					setTimeout(function() {
+						viewer.setBackgroundColor(0x000000); // back to black
+					}, 500); // flash red for 0.5 seconds
+				}
+				viewer.render(); // re-render the viewer to show the new background color
+			});
+
+			viewer.zoomTo();
+			viewer.render();
+		});
+	});
+	</script>	
+	
+	
+	
+	
 </body>
 </html>
 
