@@ -12,7 +12,7 @@
         <h3><a href="https://www.dsvatunek.com/">dsvatunek.com</a></h3>
         <p>Tech demo for rotateable and interactive elements using different solutions.</p>
 		<hr>
-		<h2>Tech Demo 1 &ndash Reaction Coordinate</h2>
+		<h2>Tech Demo 1 &ndash; Reaction Coordinate</h2>
 		<p>Dynamic reaction coordinate of the fluoride + ethylchloride SN2 reaction. Made using 3Dmol.js. Can be expanded with labels, custom text based on the current frame, and even graphs that follow the current frames.</p>
         <div id="IRC" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
 		<div id="frameText"></div>
@@ -20,19 +20,19 @@
 		<img src="public/slider.png" alt="use the slider to advance the reaction" width="400"/>
 		<hr>	
 
-        <h2>Tech Demo 2 &ndash Interactive Quiz </h2>
+        <h2>Tech Demo 2 &ndash; Interactive Quiz </h2>
 		<p style=”color:red”>Click on the most basic atom!</p>
 		<div id="Quiz" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
 		<hr>
 
 		
-        <h2>Tech Demo 3 &ndash Orbitals </h2>
+        <h2>Tech Demo 3 &ndash; Orbitals </h2>
 		<p>The following shows the LUMO of butadiene.</p>
 		<div id="Orbital" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
 		<hr>
 		
 		
-		<h2>Tech Demo 4 &ndash Custom 3D Models</h2>
+		<h2>Tech Demo 4 &ndash; Custom 3D Models</h2>
 		<p>Rotateable high quality models. Slider allows to switch between models. Models rotate in unison. Perspective and orthographic view!<br>
         Realized by using three.js and glTF models. All kinds of models, e.g., lab equipment, possible. It is also possible to change the text depending on the displayed model.</p>
 
@@ -104,7 +104,7 @@
 		    var viewer = $3Dmol.createViewer("Orbital");
 			var m = viewer.addModel(data, "cube");
 			viewer.addModel(data, "cube");
-			viewer.setBackgroundColor(0x000000);
+			viewer.setBackgroundColor(0xd3d3d3); //better for orbitals
 			viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
 			
 			var data = new $3Dmol.VolumeData(data, "cube");
@@ -147,7 +147,7 @@
 					viewer.setBackgroundColor(0xBF0000); // red
 					setTimeout(function() {
 						viewer.setBackgroundColor(0x000000); // back to black
-					}, 500); // flash red for 0.5 seconds
+					}, 200); // flash red for 0.2 seconds
 				}
 				viewer.render(); // re-render the viewer to show the new background color
 			});
