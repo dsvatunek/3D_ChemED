@@ -1,59 +1,11 @@
 $(document).ready(function() {
-    var viewers = [];
-    var rotation = { dx: 0, dy: 0 };
-    var default_rotation = { dx: 0, dy: 0 };
-
     // Load molecule for each viewer
     $('.mol_container').each(function() {
         var viewerId = this.id;
         var file = $(this).data('file');
         var colorScheme = $(this).data('color-scheme');
         var viewer = loadMolecule(viewerId, file, colorScheme);
-        viewers.push(viewer);
         $(this).data('viewer', viewer);  // Store the viewer instance in the DOM element for reference later
-    });
-
-    // Rotate all viewers based on stored rotation values
-    function updateViewers() {
-        viewers.forEach(function(viewer) {
-            viewer.setRotation(default_rotation.dx, {x: 0, y: 1});
-            viewer.setRotation(default_rotation.dy, {x: 1, y: 0});
-            viewer.rotate(rotation.dx, {x: 0, y: 1});
-            viewer.rotate(rotation.dy, {x: 1, y: 0});
-            viewer.render();
-        });
-    }
-
-    // Handle rotation on mousedown or touchstart event
-    $('.mol_container').on('mousedown touchstart', function(event) {
-        event.preventDefault();
-
-        var startPos = event.type === 'mousedown' ? event : event.originalEvent.touches[0];
-        var lastPos = { x: startPos.clientX, y: startPos.clientY };
-
-        $(document).on('mousemove touchmove', function(event) {
-            var currentPos = event.type === 'mousemove' ? event : event.originalEvent.touches[0];
-            
-            var dx = currentPos.clientX - lastPos.x;
-            var dy = currentPos.clientY - lastPos.y;
-            
-            rotation.dx += dx;
-            rotation.dy += dy;
-
-            lastPos = { x: currentPos.clientX, y: currentPos.clientY };
-
-            updateViewers();
-        });
-
-        $(document).on('mouseup touchend', function() {
-            $(document).off('mousemove touchmove');
-        });
-
-    // Handle zooming on wheel event
-    $('.mol_container').on('wheel', function(event) {
-        event.preventDefault();
-        var delta = event.originalEvent.deltaY;
-        zoomViewers(viewers, delta);
     });
 });
 
@@ -79,25 +31,8 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.5);
-        viewer.rotate(18, {x: 0, y: 0, z: 1});      
+        viewer.rotate(17, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
-}
-
-function rotateViewers(viewers, activeViewer, dy, dx) {
-    viewers.forEach(function(viewer){
-        if (viewer !== activeViewer) {
-            viewer.rotate(1 * dy, {x: 1, y: 0});
-            viewer.rotate(1 * dx, {x: 0, y: 1});
-            viewer.render();
-        }
-    });
-}
-
-function zoomViewers(viewers, delta) {
-    viewers.forEach(function(viewer){
-        viewer.zoom(1 + (1 * delta));
-        viewer.render();
-    });
 }

@@ -38,6 +38,8 @@ p {
     font-weight: 400; /* Regular weight, not bold */
     line-height: 21px;
 	text-align: left;
+	padding-left: 10px;
+    padding-right: 10px;
 }
 
 p.small-font {
@@ -46,6 +48,8 @@ p.small-font {
     line-height: 21px;
 	text-align: left;
 	color:	#303030;
+	padding-left: 10px;
+    padding-right: 10px;
 }
 
 .main-container {
@@ -91,7 +95,8 @@ p.small-font {
 
 .scaled-image {
 	height: 100%;
-  max-width: 100%; /* Maximale Höhe des Bildes auf 100% des Containers begrenzen */
+  max-width: 100%; 
+  object-fit: cover;
 }
 
       .molecule {
