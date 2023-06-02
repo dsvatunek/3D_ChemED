@@ -14,7 +14,7 @@ function loadMolecule(viewerId, file, colorScheme) {
     $.get(file, function(data) {
         var m = viewer.addModel(data, "cube");
         viewer.addModel(data, "cube");
-        viewer.setBackgroundColor(0x000000);
+        viewer.setBackgroundColor(0xd3d3d3);
         viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
         
         var volumeData = new $3Dmol.VolumeData(data, "cube");
