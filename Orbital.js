@@ -1,12 +1,12 @@
-$(document).ready(function() {
+(document).ready(function() {
     var viewers = [];
 
     // Load molecule for each viewer
     $('.mol_container').each(function() {
         var viewerId = this.id;
         var file = $(this).data('file');
-		var colorScheme = $(this).data('color-scheme'); 
-        var viewer = loadMolecule(viewerId, file);
+        var colorScheme = $(this).data('color-scheme');
+        var viewer = loadMolecule(viewerId, file, colorScheme);
         viewers.push(viewer);
     });
 
@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 });
 
-function loadMolecule(viewerId, file) {
+function loadMolecule(viewerId, file, colorScheme) {
     var viewer = $3Dmol.createViewer(viewerId);
     $.get(file, function(data) {
         var m = viewer.addModel(data, "cube");
@@ -48,8 +48,8 @@ function loadMolecule(viewerId, file) {
         }
         
         viewer.zoomTo();
-        viewer.zoom(1.5);
-        viewer.rotate(-9, {x: 0, y: 0, z: 1});      
+        viewer.zoom(1.8);
+        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
