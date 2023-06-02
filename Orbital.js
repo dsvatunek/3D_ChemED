@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var viewers = [];
+    var rotation = { dx: 0, dy: 0 };
 
     // Load molecule for each viewer
     $('.mol_container').each(function() {
@@ -11,38 +12,47 @@ $(document).ready(function() {
         $(this).data('viewer', viewer);  // Store the viewer instance in the DOM element for reference later
     });
 
-    // Enable rotation and zoom synchronization
-    var activeViewer = null;
-    $('.mol_container').mousedown(function(event) {
+    // Rotate all viewers based on stored rotation values
+    function updateViewers() {
+        viewers.forEach(function(viewer) {
+            viewer.setRotation(rotation.dx, {x: 0, y: 1});
+            viewer.setRotation(rotation.dy, {x: 1, y: 0});
+            viewer.render();
+        });
+    }
+
+    // Handle rotation on mousedown or touchstart event
+    $('.mol_container').on('mousedown touchstart', function(event) {
         event.preventDefault();
-        activeViewer = $(this).data('viewer');
-        var last_x = event.clientX;
-        var last_y = event.clientY;
 
+        var startPos = event.type === 'mousedown' ? event : event.originalEvent.touches[0];
+        var lastPos = { x: startPos.clientX, y: startPos.clientY };
 
+        $(document).on('mousemove touchmove', function(event) {
+            var currentPos = event.type === 'mousemove' ? event : event.originalEvent.touches[0];
+            
+            var dx = currentPos.clientX - lastPos.x;
+            var dy = currentPos.clientY - lastPos.y;
+            
+            rotation.dx += dx;
+            rotation.dy += dy;
 
-		$(document).mousemove(function(event) {
-			if (activeViewer) {
-				var dx = event.clientX - last_x;
-				var dy = event.clientY - last_y;
-				last_x = event.clientX;
-				last_y = event.clientY;
-				rotateViewers(viewers, activeViewer, dy, dx);
-			}
-		}).mouseup(function() {
-			$(document).off('mousemove');
-			activeViewer = null;
-		});
+            lastPos = { x: currentPos.clientX, y: currentPos.clientY };
+
+            updateViewers();
+        });
+
+        $(document).on('mouseup touchend', function() {
+            $(document).off('mousemove touchmove');
+        });
     });
 
-    // Enable zoom synchronization
-	$('.mol_container').on('wheel', function(event) {
-		event.preventDefault();
-		var delta = event.originalEvent.deltaY;
-		if (activeViewer) {
-			zoomViewers(viewers, activeViewer, delta);
-		}
-	});
+    // Handle zooming on wheel event
+    $('.mol_container').on('wheel', function(event) {
+        event.preventDefault();
+        var delta = event.originalEvent.deltaY;
+        zoomViewers(viewers, delta);
+    });
 });
 
 function loadMolecule(viewerId, file, colorScheme) {
@@ -83,11 +93,9 @@ function rotateViewers(viewers, activeViewer, dy, dx) {
     });
 }
 
-function zoomViewers(viewers, activeViewer, delta) {
+function zoomViewers(viewers, delta) {
     viewers.forEach(function(viewer){
-        if (viewer !== activeViewer) {
-            viewer.zoom(1 + (1 * delta));
-            viewer.render();
-        }
+        viewer.zoom(1 + (1 * delta));
+        viewer.render();
     });
 }
