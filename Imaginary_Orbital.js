@@ -22,7 +22,7 @@ function loadMolecule_virt(viewerId, file) {
                 
         viewer.zoomTo();
         viewer.zoom(1.5);  
-		viewer.rotate(-15, {x: 0, y: 0, z: 1});  
+		viewer.rotate(30, {x: 0, y: 0, z: 1});  
         viewer.render();
         
         widgets_virt[viewerId] = viewer;
