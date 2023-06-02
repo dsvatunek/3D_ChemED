@@ -86,7 +86,7 @@ p.small-font {
   align-items: center;
   height: 100%;
   font-size: 24px;
-  width: 200px;
+  width: 100px;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -99,15 +99,15 @@ p.small-font {
   object-fit: cover;
 }
 
-      .molecule {
-          width: 800px;
-          display: flex;
-          flex-direction: column;
-		justify-content: space-around;
-          align-items: center;
-	    margin: 0;
-		padding: 0;
-      }
+.molecule {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+justify-content: space-around;
+    align-items: center;
+  margin: 0;
+padding: 0;
+}
 	  
 .molecule > div {
     margin-bottom: 1px;
