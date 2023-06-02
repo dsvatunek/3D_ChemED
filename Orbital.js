@@ -1,3 +1,5 @@
+var widgets = {};
+
 $(document).ready(function() {
     $('.mol_container').each(function() {
         var viewerId = this.id;  // get id of div
