@@ -54,6 +54,13 @@ p.small-font {
 	align-items: center; 
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Optional: Add some bottom margin */
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -83,6 +90,7 @@ p.small-font {
 }
 
 .scaled-image {
+	height: 100%;
   max-width: 100%; /* Maximale Höhe des Bildes auf 100% des Containers begrenzen */
 }
 

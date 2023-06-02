@@ -21,9 +21,7 @@ function loadMolecule_virt(viewerId, file) {
         viewer.addIsosurface(volumeData, {isoval: 0.02, color: "yellow", alpha: 0.8, smoothness: 10});
                 
         viewer.zoomTo();
-        viewer.zoom(1.8);
-        viewer.rotate(-45, {x: 0, y: 1, z: 0});      
-        //viewer.rotate(90, {x: 1, y: 0, z: 0});      
+        viewer.zoom(1.5);  
         viewer.render();
         
         widgets_virt[viewerId] = viewer;
