@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Molekülorbitale von Benzol</title>
+    <link rel="stylesheet" href="styles_benzol_MO.css">
+</head>
+
+<body>
+    <div class="main-container">
+	    <img src="public/logo.svg" alt="Logo DIMENSIONS" width="400"/>
+        <h3>Dr. Dennis Svatunek</h3>
+        <h3><a href="https://www.dsvatunek.com/">dsvatunek.com</a></h3>
+		<hr>
+		<h1>&pi;-Molekülorbitale von Benzol</h1>
+
+        <p>Die π-Molekülorbitale in Benzol werden aus den p-Orbitalen der Kohlenstoffatome gebildet. Sie sind ober- und unterhalb der Ebene des Kohlenstoffringes lokalisiert und für die aromatischen Eigenschaft von Benzol verantwortlich. Insgesamt gibt es sechs π-Molekülorbitale in Benzol, die in dieser 3D-Visualisierung dargestellt sind.</p>
+		<p>Viel Spaß und bitte geben Sie uns Feedback!</p>
+        <div class="row">
+            <div class="arrow">
+                <!-- Add your arrow graphic here -->
+				<img class="scaled-image" src="public/arrow.png" alt="arrow" />
+            </div>
+            <div class="molecule">
+                <div class="molecule-model">
+                    <div><h3>LUMO+2</h3></div>
+                    <!-- Insert 3Dmol.js code for molecule here -->
+					<div id="LUMO_plus2" class="mol_container_virtual" style="height: 400px; width: 400px; position: relative" data-file="benzene_LUMOplus2.cube"></div>
+                    <div><p class="small-font">Dieses ist das π-Molekülorbital mit der höchsten Energie und unbesetzt. Hier werden alle p-Orbitale nicht in Phase kombiniert, wodurch es drei Knotenebenen, zusätzlich zu der in der Molekülebene, gibt.</p></div>
+                </div>
+				<hr>
+                <div class="row">
+                    <div class="molecule-model">
+                        <div><h3>LUMO</h3></div>
+                        <!-- Insert 3Dmol.js code for molecule here -->
+						<div id="LUMO" class="mol_container_virtual" style="height: 400px; width: 400px; position: relative" data-file="benzene_LUMO.cube"></div>
+                    </div>
+                    <div class="molecule-model">
+                        <div><h3>LUMO+1</h3></div>
+                        <!-- Insert 3Dmol.js code for molecule here -->
+						<div id="LUMO_plus1" class="mol_container_virtual" style="height: 400px; width: 400px; position: relative" data-file="benzene_LUMOplus1.cube"></div>
+                    </div>
+                </div>
+				<p class="small-font">Diese MOs sind antibindend und unbesetzt. Hier gibt es jeweils zwei Knotenebenen zusätzlich zu der in der Molekülebene.</p><hr>
+                <div class="row">
+                    <div class="molecule-model">
+                        <div><h3>HOMO-1</h3></div>
+                        <!-- Insert 3Dmol.js code for molecule here -->
+						<div id="HOMO-1" class="mol_container" style="height: 400px; width: 400px; position: relative" data-file="benzene_HOMOminus1.cube"></div>
+                    </div>
+                    <div class="molecule-model">
+                        <div><h3>HOMO</h3></div>
+                        <!-- Insert 3Dmol.js code for molecule here -->
+						<div id="HOMO" class="mol_container" style="height: 400px; width: 400px; position: relative" data-file="benzene_HOMO.cube"></div>
+                    </div>
+                </div>
+				<p class="small-font">Diese MOs sind höher in Energie aber noch bindend. Hier werden die p-Orbitale so kombiniert, dass jeweils eine Knotenebene zusätzlich zu der in der Molekülebene entsteht.Im Benzol im Grundzustand sind dieses Molekülorbital gefüllt.</p>
+				<hr>
+                <div class="molecule-model">
+                    <div><h3>HOMO-2</h3></div>
+                    <!-- Insert 3Dmol.js code for molecule here -->
+					<div id="HOMO-2" class="mol_container" style="height: 400px; width: 400px; position: relative" data-file="benzene_HOMOminus2.cube"></div>
+                    <div><p class="small-font">Dieses MO ist das stabilste (niedrigeste Energie) der π-Molekülorbitale des Benzols. Hier werden alle p Atomorbitale in Phase kombiniert. Das resultierende Molekülorbital hat nur eine Knotenebene in der Molekülebene des planaren Benzols. Im Benzol im Grundzustand ist dieses Molekülorbital gefüllt.</p></div>
+                </div>
+            </div>
+        </div>
+	<hr>
+	<hr>
+    <p>Dieses ist das π-Molekülorbital mitd er höchsten Energie und unbesetzt. Hier werden alle p-Orbitale nicht in Phase kombiniert, wodurch es drei Knotenebenen, zusätzlich zu der in der Molekülebene, gibt.</p>
+    </div>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
+    <script src="Orbital.js"></script>
+
+</body>
+
+
+</html>
+

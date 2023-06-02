@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+	flex-direction: column; 
+}
+
+h1, h2, h3, p, blockquote, pre {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+h1, h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26.4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+	text-align: center;
+	color: #004242;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 19.4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+	text-align: center;
+	color: #004242;
+}
+
+p {
+    font-size: 18px;
+    font-weight: 400; /* Regular weight, not bold */
+    line-height: 21px;
+	text-align: left;
+}
+
+p.small-font {
+    font-size: 14px;
+    font-weight: 400; /* Regular weight, not bold */
+    line-height: 21px;
+	text-align: left;
+	color:	#303030;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+	align-items: center; 
+    width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 24px;
+  width: 200px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px; /* Optional: Add some bottom margin to separate from the molecule section */
+}
+
+.scaled-image {
+  max-width: 100%; /* Maximale Höhe des Bildes auf 100% des Containers begrenzen */
+}
+
+      .molecule {
+          width: 800px;
+          display: flex;
+          flex-direction: column;
+		justify-content: space-around;
+          align-items: center;
+	    margin: 0;
+		padding: 0;
+      }
+	  
+.molecule > div {
+    margin-bottom: 1px;
+}
+
+.molecule-model {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.molecule hr {
+    border: none; /* Um die Standard-Linie zu entfernen */
+    height: 2px; /* Um die Höhe der Linie zu bestimmen */
+    background-color: #000; /* Um die Farbe der Linie zu bestimmen */
+	width: 800px;
+}
+
+
