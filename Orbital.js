@@ -19,18 +19,20 @@ $(document).ready(function() {
         var last_x = event.clientX;
         var last_y = event.clientY;
 
-        $(document).mousemove(function(event) {
-            if (activeViewer) {
-                var dx = event.clientX - last_x;
-                var dy = event.clientY - last_y;
-                last_x = event.clientX;
-                last_y = event.clientY;
-                rotateViewers(viewers, activeViewer, dy, dx);
-            }
-        }).mouseup(function() {
-            $(document).off('mousemove');
-            activeViewer = null;
-        });
+
+
+		$(document).mousemove(function(event) {
+			if (activeViewer) {
+				var dx = event.clientX - last_x;
+				var dy = event.clientY - last_y;
+				last_x = event.clientX;
+				last_y = event.clientY;
+				rotateViewers(viewers, dy, dx);
+			}
+		}).mouseup(function() {
+			$(document).off('mousemove');
+			activeViewer = null;
+		});
     });
 
     // Enable zoom synchronization
@@ -65,32 +67,23 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.5);
-        viewer.rotate(16, {x: 0, y: 0, z: 1});      
+        viewer.rotate(17, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
 }
 
-function rotateViewers(viewers, activeViewer, dy, dx) {
+function rotateViewers(viewers, dy, dx) {
     viewers.forEach(function(viewer){
-        if (viewer !== activeViewer) {
-            viewer.rotate(1 * dy, {x: 1, y: 0});
-            viewer.rotate(1 * dx, {x: 0, y: 1});
-            viewer.render();
-        }
+        viewer.rotate(1 * dy, {x: 1, y: 0});
+        viewer.rotate(1 * dx, {x: 0, y: 1});
+        viewer.render();
     });
-    activeViewer.rotate(1 * dy, {x: 1, y: 0});
-    activeViewer.rotate(1 * dx, {x: 0, y: 1});
-    activeViewer.render();
 }
 
-function zoomViewers(viewers, activeViewer, delta) {
+function zoomViewers(viewers, delta) {
     viewers.forEach(function(viewer){
-        if (viewer !== activeViewer) {
-            viewer.zoom(1 + (1 * delta));
-            viewer.render();
-        }
+        viewer.zoom(1 + (1 * delta));
+        viewer.render();
     });
-    activeViewer.zoom(1 + (1 * delta));
-    activeViewer.render();
 }
