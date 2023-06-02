@@ -1,4 +1,4 @@
-var widgets2 = {};
+var widgets_virt = {};
 
 $(document).ready(function() {
     $('.mol_container_virtual').each(function() {
@@ -26,6 +26,6 @@ function loadMolecule(viewerId, file) {
         viewer.rotate(90, {x: 1, y: 0, z: 0});      
         viewer.render();
         
-        widgets2[viewerId] = viewer;
+        widgets_virt[viewerId] = viewer;
     });
 }
