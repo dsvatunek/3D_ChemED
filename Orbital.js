@@ -10,7 +10,7 @@ $(document).ready(function() {
         viewers.push(viewer);
     });
 
-    // Enable rotation synchronization
+    // Enable rotation and zoom synchronization
     $('.mol_container').mousedown(function(event) {
         event.preventDefault();
         var last_x = event.clientX;
@@ -20,7 +20,8 @@ $(document).ready(function() {
             var dy = event.clientY - last_y;
             last_x = event.clientX;
             last_y = event.clientY;
-            rotateViewers(viewers, 0.1 * dy, 0.1 * dx);
+            rotateViewers(viewers, dy, dx);
+            zoomViewers(viewers, dy);
         }).mouseup(function() {
             $(document).off('mousemove');
         });
@@ -49,7 +50,7 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.8);
-        viewer.rotate(-9, {x: 0, y: 0, z: 1});      
+        viewer.rotate(9, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
@@ -57,8 +58,15 @@ function loadMolecule(viewerId, file, colorScheme) {
 
 function rotateViewers(viewers, dy, dx) {
     viewers.forEach(function(viewer) {
-        viewer.rotate(dy, {x: 1, y: 0});
-        viewer.rotate(dx, {x: 0, y: 1});
+        viewer.rotate(1 * dy, {x: 1, y: 0});
+        viewer.rotate(1 * dx, {x: 0, y: 1});
+        viewer.render();
+    });
+}
+
+function zoomViewers(viewers, dy) {
+    viewers.forEach(function(viewer) {
+        viewer.zoom(1 + (1 * dy));
         viewer.render();
     });
 }
