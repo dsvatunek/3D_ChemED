@@ -36,20 +36,20 @@ function loadMolecule(viewerId, file) {
         viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
         
         var volumeData = new $3Dmol.VolumeData(data, "cube");
-		if (colorScheme === 'real') {
-        viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
-        viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
-		 } else if (colorScheme === 'virtual') {
-		viewer.addIsosurface(volumeData, {isoval: -0.02, color: "red", alpha: 0.8, smoothness: 10});
-        viewer.addIsosurface(volumeData, {isoval: 0.02, color: "yellow", alpha: 0.8, smoothness: 10});
-		else {
-        viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
-		viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
+        if (colorScheme === 'real') {
+            viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
+            viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
+        } else if (colorScheme === 'virtual') {
+            viewer.addIsosurface(volumeData, {isoval: -0.02, color: "red", alpha: 0.8, smoothness: 10});
+            viewer.addIsosurface(volumeData, {isoval: 0.02, color: "yellow", alpha: 0.8, smoothness: 10});
+        } else {
+            viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
+            viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
         }
-		
+        
         viewer.zoomTo();
-        viewer.zoom(1.8);
-        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
+        viewer.zoom(1.5);
+        viewer.rotate(-9, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
