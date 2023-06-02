@@ -1,4 +1,4 @@
-(document).ready(function() {
+$(document).ready(function() {
     var viewers = [];
 
     // Load molecule for each viewer
