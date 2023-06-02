@@ -25,7 +25,7 @@ $(document).ready(function() {
                 var dy = event.clientY - last_y;
                 last_x = event.clientX;
                 last_y = event.clientY;
-                rotateViewers(viewers, dy, dx);
+                rotateViewers(viewers, activeViewer, dy, dx);
             }
         }).mouseup(function() {
             $(document).off('mousemove');
@@ -38,7 +38,7 @@ $(document).ready(function() {
         event.preventDefault();
         var delta = event.originalEvent.deltaY;
         if (activeViewer) {
-            zoomViewers(viewers, delta);
+            zoomViewers(viewers, activeViewer, delta);
         }
     });
 });
@@ -65,23 +65,32 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.5);
-        viewer.rotate(15, {x: 0, y: 0, z: 1});      
+        viewer.rotate(16, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
 }
 
-function rotateViewers(viewers, dy, dx) {
+function rotateViewers(viewers, activeViewer, dy, dx) {
     viewers.forEach(function(viewer){
-        viewer.rotate(1 * dy, {x: 1, y: 0});
-        viewer.rotate(1 * dx, {x: 0, y: 1});
-        viewer.render();
+        if (viewer !== activeViewer) {
+            viewer.rotate(1 * dy, {x: 1, y: 0});
+            viewer.rotate(1 * dx, {x: 0, y: 1});
+            viewer.render();
+        }
     });
+    activeViewer.rotate(1 * dy, {x: 1, y: 0});
+    activeViewer.rotate(1 * dx, {x: 0, y: 1});
+    activeViewer.render();
 }
 
-function zoomViewers(viewers, delta) {
+function zoomViewers(viewers, activeViewer, delta) {
     viewers.forEach(function(viewer){
-        viewer.zoom(1 + (1 * delta));
-        viewer.render();
+        if (viewer !== activeViewer) {
+            viewer.zoom(1 + (1 * delta));
+            viewer.render();
+        }
     });
+    activeViewer.zoom(1 + (1 * delta));
+    activeViewer.render();
 }
