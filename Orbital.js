@@ -8,41 +8,31 @@ $(document).ready(function() {
         var colorScheme = $(this).data('color-scheme');
         var viewer = loadMolecule(viewerId, file, colorScheme);
         viewers.push(viewer);
-        $(this).data('viewer', viewer);
+        $(this).data('viewer', viewer);  // Store the viewer instance in the DOM element for reference later
     });
 
     // Enable rotation and zoom synchronization
     var activeViewer = null;
-    var last_x, last_y;
     $('.mol_container').mousedown(function(event) {
         event.preventDefault();
         activeViewer = $(this).data('viewer');
-        last_x = event.clientX;
-        last_y = event.clientY;
-    });
+        var last_x = event.clientX;
+        var last_y = event.clientY;
 
-    $(document).mousemove(function(event) {
-        if (activeViewer) {
-            var dx = event.clientX - last_x;
-            var dy = event.clientY - last_y;
-            last_x = event.clientX;
-            last_y = event.clientY;
-            activeViewer.rotate(1 * dy, {x: 1, y: 0});
-            activeViewer.rotate(1 * dx, {x: 0, y: 1});
-            activeViewer.render();
-        }
-    }).mouseup(function() {
-        if (activeViewer) {
-            var rotation = activeViewer.getRotation();
-            viewers.forEach(function(viewer) {
-                if (viewer !== activeViewer) {
-                    viewer.setRotation(rotation);
-                    viewer.render();
-                }
-            });
-        }
-        $(document).off('mousemove');
-        activeViewer = null;
+
+
+		$(document).mousemove(function(event) {
+			if (activeViewer) {
+				var dx = event.clientX - last_x;
+				var dy = event.clientY - last_y;
+				last_x = event.clientX;
+				last_y = event.clientY;
+				rotateViewers(viewers, dy, dx);
+			}
+		}).mouseup(function() {
+			$(document).off('mousemove');
+			activeViewer = null;
+		});
     });
 
     // Enable zoom synchronization
@@ -50,19 +40,10 @@ $(document).ready(function() {
         event.preventDefault();
         var delta = event.originalEvent.deltaY;
         if (activeViewer) {
-            activeViewer.zoom(1 + (1 * delta));
-            activeViewer.render();
-            var zoom = activeViewer.getZoom();
-            viewers.forEach(function(viewer) {
-                if (viewer !== activeViewer) {
-                    viewer.setZoom(zoom);
-                    viewer.render();
-                }
-            });
+            zoomViewers(viewers, activeViewer, delta);
         }
     });
 });
-
 
 function loadMolecule(viewerId, file, colorScheme) {
     var viewer = $3Dmol.createViewer(viewerId);
