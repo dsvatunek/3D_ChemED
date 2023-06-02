@@ -23,7 +23,7 @@ function loadMolecule(viewerId, file) {
         viewer.zoomTo();
         viewer.zoom(1.8);
         viewer.rotate(-45, {x: 0, y: 1, z: 0});      
-        viewer.rotate(90, {x: 1, y: 0, z: 0});      
+        //viewer.rotate(90, {x: 1, y: 0, z: 0});      
         viewer.render();
         
         widgets[viewerId] = viewer;
