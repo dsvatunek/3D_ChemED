@@ -55,6 +55,7 @@ function loadMolecule(viewerId, file, colorScheme) {
     return viewer;
 }
 
+
 function rotateViewers(viewers, dy, dx) {
     viewers.forEach(function(viewer) {
         viewer.rotate(0.1 * dy, {x: 1, y: 0});
