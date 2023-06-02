@@ -21,7 +21,8 @@ function loadMolecule(viewerId, file) {
         viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
                 
         viewer.zoomTo();
-        viewer.zoom(1.5);  
+        viewer.zoom(1.5);
+        viewer.rotate(-12, {x: 0, y: 0, z: 1});          
         viewer.render();
         
         widgets[viewerId] = viewer;
