@@ -63,19 +63,29 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.8);
-        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
+        viewer.rotate(10, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
 }
 
-function rotateViewer(viewer, dy, dx) {
-    viewer.rotate(1 * dy, {x: 1, y: 0});
-    viewer.rotate(1 * dx, {x: 0, y: 1});
-    viewer.render();
-}
+$(document).mousemove(function(event) {
+    if (activeViewer) {
+        var dx = event.clientX - last_x;
+        var dy = event.clientY - last_y;
+        last_x = event.clientX;
+        last_y = event.clientY;
+        rotateViewers(viewers, dy, dx);
+    }
+}).mouseup(function() {
+    $(document).off('mousemove');
+    activeViewer = null;
+});
 
-function zoomViewer(viewer, delta) {
-    viewer.zoom(1 + (1 * delta));
-    viewer.render();
-}
+$('.mol_container').on('wheel', function(event) {
+    event.preventDefault();
+    var delta = event.originalEvent.deltaY;
+    if (activeViewer) {
+        zoomViewers(viewers, delta);
+    }
+});
