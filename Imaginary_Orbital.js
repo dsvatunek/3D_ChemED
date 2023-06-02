@@ -4,11 +4,11 @@ $(document).ready(function() {
     $('.mol_container_virtual').each(function() {
         var viewerId = this.id;  // get id of div
         var file = $(this).data('file');  // get cube file name from data-file attribute
-        loadMolecule(viewerId, file);
+        loadMolecule_virt(viewerId, file);
     });
 });
 
-function loadMolecule(viewerId, file) {
+function loadMolecule_virt(viewerId, file) {
     $.get(file, function(data) {
         var viewer = $3Dmol.createViewer(viewerId);
         var m = viewer.addModel(data, "cube");
