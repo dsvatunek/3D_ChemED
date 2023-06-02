@@ -11,20 +11,33 @@ $(document).ready(function() {
     });
 
     // Enable rotation and zoom synchronization
+    var activeViewer = null;
     $('.mol_container').mousedown(function(event) {
         event.preventDefault();
+        activeViewer = $(this).data('viewer');
         var last_x = event.clientX;
         var last_y = event.clientY;
         $(document).mousemove(function(event) {
-            var dx = event.clientX - last_x;
-            var dy = event.clientY - last_y;
-            last_x = event.clientX;
-            last_y = event.clientY;
-            rotateViewers(viewers, dy, dx);
-            zoomViewers(viewers, dy);
+            if (activeViewer) {
+                var dx = event.clientX - last_x;
+                var dy = event.clientY - last_y;
+                last_x = event.clientX;
+                last_y = event.clientY;
+                rotateViewer(activeViewer, dy, dx);
+            }
         }).mouseup(function() {
             $(document).off('mousemove');
+            activeViewer = null;
         });
+    });
+
+    // Enable zoom synchronization
+    $('.mol_container').on('wheel', function(event) {
+        event.preventDefault();
+        var delta = event.originalEvent.deltaY;
+        if (activeViewer) {
+            zoomViewer(activeViewer, delta);
+        }
     });
 });
 
@@ -50,23 +63,19 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.8);
-        viewer.rotate(9, {x: 0, y: 0, z: 1});      
+        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
 }
 
-function rotateViewers(viewers, dy, dx) {
-    viewers.forEach(function(viewer) {
-        viewer.rotate(1 * dy, {x: 1, y: 0});
-        viewer.rotate(1 * dx, {x: 0, y: 1});
-        viewer.render();
-    });
+function rotateViewer(viewer, dy, dx) {
+    viewer.rotate(1 * dy, {x: 1, y: 0});
+    viewer.rotate(1 * dx, {x: 0, y: 1});
+    viewer.render();
 }
 
-function zoomViewers(viewers, dy) {
-    viewers.forEach(function(viewer) {
-        viewer.zoom(1 + (1 * dy));
-        viewer.render();
-    });
+function zoomViewer(viewer, delta) {
+    viewer.zoom(1 + (1 * delta));
+    viewer.render();
 }
