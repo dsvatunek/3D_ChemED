@@ -5,6 +5,7 @@ $(document).ready(function() {
     $('.mol_container').each(function() {
         var viewerId = this.id;
         var file = $(this).data('file');
+		var colorScheme = $(this).data('color-scheme'); 
         var viewer = loadMolecule(viewerId, file);
         viewers.push(viewer);
     });
@@ -35,12 +36,20 @@ function loadMolecule(viewerId, file) {
         viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
         
         var volumeData = new $3Dmol.VolumeData(data, "cube");
+		if (colorScheme === 'real') {
         viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
         viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
-                
+		 } else if (colorScheme === 'virtual') {
+		viewer.addIsosurface(volumeData, {isoval: -0.02, color: "red", alpha: 0.8, smoothness: 10});
+        viewer.addIsosurface(volumeData, {isoval: 0.02, color: "yellow", alpha: 0.8, smoothness: 10});
+		else {
+        viewer.addIsosurface(volumeData, {isoval: -0.02, color: "blue", alpha: 0.8, smoothness: 10});
+		viewer.addIsosurface(volumeData, {isoval: 0.02, color: "green", alpha: 0.8, smoothness: 10});
+        }
+		
         viewer.zoomTo();
         viewer.zoom(1.8);
-        viewer.rotate(-45, {x: 0, y: 1, z: 0});      
+        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
