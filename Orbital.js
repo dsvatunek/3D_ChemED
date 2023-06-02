@@ -49,17 +49,16 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.8);
-        viewer.rotate(-15, {x: 0, y: 0, z: 1});      
+        viewer.rotate(-9, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
 }
 
-
 function rotateViewers(viewers, dy, dx) {
     viewers.forEach(function(viewer) {
-        viewer.rotate(0.1 * dy, {x: 1, y: 0});
-        viewer.rotate(0.1 * dx, {x: 0, y: 1});
+        viewer.rotate(dy, {x: 1, y: 0});
+        viewer.rotate(dx, {x: 0, y: 1});
         viewer.render();
     });
 }
