@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var viewers = [];
     var rotation = { dx: 0, dy: 0 };
+    var default_rotation = { dx: 0, dy: 0 };
 
     // Load molecule for each viewer
     $('.mol_container').each(function() {
@@ -15,8 +16,10 @@ $(document).ready(function() {
     // Rotate all viewers based on stored rotation values
     function updateViewers() {
         viewers.forEach(function(viewer) {
-            viewer.setRotation(rotation.dx, {x: 0, y: 1});
-            viewer.setRotation(rotation.dy, {x: 1, y: 0});
+            viewer.setRotation(default_rotation.dx, {x: 0, y: 1});
+            viewer.setRotation(default_rotation.dy, {x: 1, y: 0});
+            viewer.rotate(rotation.dx, {x: 0, y: 1});
+            viewer.rotate(rotation.dy, {x: 1, y: 0});
             viewer.render();
         });
     }
@@ -45,7 +48,6 @@ $(document).ready(function() {
         $(document).on('mouseup touchend', function() {
             $(document).off('mousemove touchmove');
         });
-    });
 
     // Handle zooming on wheel event
     $('.mol_container').on('wheel', function(event) {
@@ -77,7 +79,7 @@ function loadMolecule(viewerId, file, colorScheme) {
         
         viewer.zoomTo();
         viewer.zoom(1.5);
-        viewer.rotate(17, {x: 0, y: 0, z: 1});      
+        viewer.rotate(18, {x: 0, y: 0, z: 1});      
         viewer.render();
     });
     return viewer;
