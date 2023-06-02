@@ -49,6 +49,7 @@ p.narrow {
 	text-align: left;
 	padding-left: 10px;
     padding-right: 10px;
+	font-family: "Segoe UI Emoji", "Noto Color Emoji", Tahoma, Verdana, Segoe, sans-serif;
 }
 
 p.small-font {
