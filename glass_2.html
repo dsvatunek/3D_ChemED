@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js GLB Example</title>
+    <style>
+      body { margin: 0; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+	<script src="https://unpkg.com/three@0.133.0/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://unpkg.com/three@0.133.0/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://unpkg.com/three@0.133.0/examples/js/libs/stats.min.js"></script>
+    <script>
+      const scene = new THREE.Scene();
+
+      // Create a camera
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+		
+      // Create a renderer
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+	  renderer.setClearColor(0xb3b3b3) // BG color
+      document.body.appendChild(renderer.domElement);
+	  
+	  // Create a new Stats object
+	  var stats = new Stats();
+	  
+	  // Append it to the body or any other container you want
+	  document.body.appendChild(stats.dom);
+	  
+	  // Position the stats panel
+	  stats.dom.style.position = 'absolute';
+	  stats.dom.style.left = '0px';
+	  stats.dom.style.top = '0px';
+			  
+      // Create environment map
+      let envMap = new THREE.WebGLCubeRenderTarget(1024).fromEquirectangularTexture(renderer, new THREE.TextureLoader().load('lab.jpg'));
+      scene.environment = envMap.texture;
+
+      // Create OrbitControls
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+      // Add a directional light to the scene
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(1, 1, 1);
+      scene.add(light);
+	  
+	  const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+	  scene.add(ambientLight);
+
+      // Load the GLTF file
+      const loader = new THREE.GLTFLoader();
+      loader.load(
+        'public/test_clean3.glb',
+        function (gltf) {
+          // Called when the resource is loaded
+          const model = gltf.scene;
+          scene.add(model);
+
+          // Traverse through the model's materials and assign MeshPhysicalMaterial to desired materials
+          model.traverse(function (child) {
+            if (child.isMesh) {
+              if (child.material.name === 'Clear Glass') {
+                // Create a new MeshPhysicalMaterial
+                const newMaterial = new THREE.MeshPhysicalMaterial({
+                  color: 0xffffff, // Set desired color
+				  roughness: 0.1,  
+				  transmission: 1,
+					clearcoat: 1,
+reflectivity: 0.1,
+sheen: 0.5,					
+				  thickness: 0.2, // Add refraction!
+				   side: THREE.DoubleSide,
+					depthTest: false
+                  // Additional parameters...
+                });
+
+                // Replace the material with the new MeshPhysicalMaterial
+                child.material = newMaterial;
+              }
+				if (child.material.name === 'Ground Glass') {
+                // Create a new MeshPhysicalMaterial for Ground Glass
+                const groundGlassMaterial = new THREE.MeshPhysicalMaterial({
+				  roughness: 0.5,  
+				  clearcoatRoughness: 1,
+				  transmission: 1,  
+				  thickness: 0.5, // Add refraction!
+				side: THREE.DoubleSide,
+					depthTest: false
+                  // Additional parameters...
+                });
+
+                // Replace the material with the new MeshPhysicalMaterial
+                child.material = groundGlassMaterial;
+              }
+			  if (child.material.name === 'Material.002') {
+                // Create a new MeshStandardMaterial for Material.001
+                const material001 = new THREE.MeshStandardMaterial({
+                  color: 0xd3d3d3, // Set desired color
+                  roughness: 0.2,
+				  reflectivity: 0.9,
+                  metalness: 1.0,
+                  // Additional parameters...
+                });
+
+                // Replace the material with the new MeshStandardMaterial
+                child.material = material001;
+              }
+			  
+			  
+			  
+			  
+            }
+          });
+        },
+        undefined,
+        function (error) {
+          // Called if there is an error
+          console.error(error);
+        }
+      );
+
+      // Render the scene
+		function animate() {
+		  // Begin monitoring code
+		  stats.begin();
+
+		  // The code you want to monitor goes here
+		  renderer.render(scene, camera);
+
+		  // End monitoring code
+		  stats.end();
+
+		  requestAnimationFrame(animate);
+		}
+      animate();
+    </script>
+  </body>
+</html>
