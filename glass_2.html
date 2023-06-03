@@ -22,7 +22,7 @@
       camera.position.z = 5;
 		
       // Create a renderer
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      const renderer = new THREE.WebGLRenderer({ antialias: "SMAA" });
       renderer.setSize(window.innerWidth, window.innerHeight);
 	  renderer.setClearColor(0xb3b3b3) // BG color
       document.body.appendChild(renderer.domElement);
