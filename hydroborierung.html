@@ -9,12 +9,13 @@
 window.onload = function() {
     //Terminal
     var widgets = {};
+    var widgets2 = {};
 
-    window.step_frame = function(slider) {
+    window.step_frame = function(slider, widgetToUse) {
         let frameNum = parseInt(slider.value);
         
         // Iterate over each viewer in the widgets and set the frame number.
-        Object.values(widgets).forEach(function(viewer) {
+        Object.values(widgetToUse).forEach(function(viewer) {
             viewer.setFrame(frameNum);
             viewer.render();
         });
@@ -22,10 +23,11 @@ window.onload = function() {
 
     $(document).ready(function() {
         // Define your data file
-        let dataPath = "public/IRC_terminal.xyz";
+        let dataPath1 = "public/IRC_terminal.xyz";
+        let dataPath2 = "public/IRC_internal.xyz";
 
-        // Fetch the data
-        $.get(dataPath, function(data) {
+        // Fetch the data for terminal
+        $.get(dataPath1, function(data) {
             // Create the viewer grid
             var viewers = $3Dmol.createViewerGrid(
             'IRC_terminal',
@@ -57,30 +59,9 @@ window.onload = function() {
             let slider = document.getElementById("IRC_slider1");
             slider.max = viewer1.getNumFrames();
         });
-    });
-}
-    </script>
-	<script>
-	window.onload = function() {
-    //Terminal
-    var widgets2 = {};
 
-    window.step_frame = function(slider) {
-        let frameNum = parseInt(slider.value);
-        
-        // Iterate over each viewer in the widgets and set the frame number.
-        Object.values(widgets).forEach(function(viewer) {
-            viewer.setFrame(frameNum);
-            viewer.render();
-        });
-    }
-
-    $(document).ready(function() {
-        // Define your data file
-        let dataPath = "public/IRC_internal.xyz";
-
-        // Fetch the data
-        $.get(dataPath, function(data) {
+        // Fetch the data for internal
+        $.get(dataPath2, function(data) {
             // Create the viewer grid
             var viewers = $3Dmol.createViewerGrid(
             'IRC_internal',
@@ -114,6 +95,7 @@ window.onload = function() {
         });
     });
 }
+
     </script>
 	
 	
@@ -128,7 +110,7 @@ window.onload = function() {
 
         <div class="molecule-model">
             <div id="IRC_terminal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
-            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider1" oninput="step_frame(this);" style="width: 400px;">
+            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider1" oninput="step_frame(this, widgets);" style="width: 400px;">
             <div><p class="small-font">.</p>
             </div>
         </div>
@@ -136,7 +118,7 @@ window.onload = function() {
 		<h1>Hydroboration at internal carbon</h1>
 		<div class="molecule-model">
             <div id="IRC_internal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
-            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider2" oninput="step_frame(this);" style="width: 400px;">
+            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider2" oninput="step_frame(this, widgets2);" style="width: 400px;">
             <div><p class="small-font">.</p>
             </div>
         </div>
