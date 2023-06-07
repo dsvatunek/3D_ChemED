@@ -6,59 +6,59 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
     <script>
-    window.onload = function() {
-        //Terminal
-        var widgets = {};
+window.onload = function() {
+    //Terminal
+    var widgets = {};
 
-        function step_frame(slider) {
-            let frameNum = parseInt(slider.value);
-            
-            // Iterate over each viewer in the widgets and set the frame number.
-            Object.values(widgets).forEach(function(viewer) {
-                viewer.setFrame(frameNum);
-                viewer.render();
-            });
-        }
-
-        $(document).ready(function() {
-            // Define your data file
-            let dataPath = "public/IRC_terminal.xyz";
-
-            // Fetch the data
-            $.get(dataPath, function(data) {
-                // Create the viewer grid
-                var viewers = $3Dmol.createViewerGrid(
-                'IRC_terminal',
-                {
-                    rows: 1,
-                    cols: 2,
-                    control_all: true
-                },
-                { backgroundColor: 'lightgrey' }
-                );
-
-                // Viewer 1 (sticks and balls)
-                var viewer1 = viewers[0][0];
-                viewer1.addModelsAsFrames(data, 'xyz');
-                viewer1.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
-                viewer1.zoomTo();
-                viewer1.render();
-                widgets["viewer1"] = viewer1;
-
-                // Viewer 2 (space filling)
-                var viewer2 = viewers[0][1];
-                viewer2.addModelsAsFrames(data, 'xyz');
-                viewer2.setStyle({}, {sphere: {}});
-                viewer2.zoomTo();
-                viewer2.render();
-                widgets["viewer2"] = viewer2;
-                
-                // Set the max slider value to the number of frames
-                let slider = document.getElementById("IRC_slider1");
-                slider.max = viewer1.getNumFrames();
-            });
+    window.step_frame = function(slider) {
+        let frameNum = parseInt(slider.value);
+        
+        // Iterate over each viewer in the widgets and set the frame number.
+        Object.values(widgets).forEach(function(viewer) {
+            viewer.setFrame(frameNum);
+            viewer.render();
         });
     }
+
+    $(document).ready(function() {
+        // Define your data file
+        let dataPath = "public/IRC_terminal.xyz";
+
+        // Fetch the data
+        $.get(dataPath, function(data) {
+            // Create the viewer grid
+            var viewers = $3Dmol.createViewerGrid(
+            'IRC_terminal',
+            {
+                rows: 1,
+                cols: 2,
+                control_all: true
+            },
+            { backgroundColor: 'lightgrey' }
+            );
+
+            // Viewer 1 (sticks and balls)
+            var viewer1 = viewers[0][0];
+            viewer1.addModelsAsFrames(data, 'xyz');
+            viewer1.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+            viewer1.zoomTo();
+            viewer1.render();
+            widgets["viewer1"] = viewer1;
+
+            // Viewer 2 (space filling)
+            var viewer2 = viewers[0][1];
+            viewer2.addModelsAsFrames(data, 'xyz');
+            viewer2.setStyle({}, {sphere: {}});
+            viewer2.zoomTo();
+            viewer2.render();
+            widgets["viewer2"] = viewer2;
+            
+            // Set the max slider value to the number of frames
+            let slider = document.getElementById("IRC_slider1");
+            slider.max = viewer1.getNumFrames();
+        });
+    });
+}
     </script>
 </head>
 
