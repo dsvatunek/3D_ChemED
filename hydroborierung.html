@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hydroboration</title>
+    <link rel="stylesheet" href="styles_hydroboration.css">
+</head>
+
+<body>
+    <div class="main-container">
+		
+		<h1>Hydroboration at terminal</h1>
+
+		<div class="molecule-model">
+		<div id="IRC_terminal" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
+		<input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider1" oninput="step_frame(this, 'IRC_terminal');" style="width: 400px;">
+		<div><p class="small-font">.</p>
+		</div>
+        </div>
+		
+	<hr>
+	<hr>
+	<div class="logo">
+	<img src="public/logo.svg" alt="Logo DIMENSIONS" width="400"/>
+	</div>
+    <h3>Dr. Dennis Svatunek</h3>
+    <h3><a href="https://www.dsvatunek.com/">dsvatunek.com</a></h3>
+	<p>Dies ist ein Test für eine bessere 3D Visualisierung in der organischen Chemie. Probleme, Anregungen oder Feedback bitte an Dennis Svatunek richten.</p>
+    </div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
+	<script>
+	//Terminal
+var widgets = {};
+
+function step_frame(slider) {
+    let frameNum = parseInt(slider.value);
+    
+    // Iterate over each viewer in the widgets and set the frame number.
+    Object.values(widgets).forEach(function(viewer) {
+        viewer.setFrame(frameNum);
+        viewer.render();
+    });
+}
+
+$(document).ready(function() {
+  // Define your data file
+  let dataPath = "public/IRC_terminal.xyz";
+
+  // Fetch the data
+  $.get(dataPath, function(data) {
+    // Create the viewer grid
+    var viewers = $3Dmol.createViewerGrid(
+      'IRC_terminal',
+      {
+        rows: 1,
+        cols: 2,
+        control_all: true
+      },
+      { backgroundColor: 'lightgrey' }
+    );
+
+    // Viewer 1 (sticks and balls)
+    var viewer1 = viewers[0][0];
+    viewer1.addModelsAsFrames(data, 'xyz');
+    viewer1.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+    viewer1.zoomTo();
+    viewer1.render();
+    widgets["viewer1"] = viewer1;
+
+    // Viewer 2 (space filling)
+    var viewer2 = viewers[0][1];
+    viewer2.addModelsAsFrames(data, 'xyz');
+    viewer2.setStyle({}, {sphere: {}});
+    viewer2.zoomTo();
+    viewer2.render();
+    widgets["viewer2"] = viewer2;
+    
+    // Set the max slider value to the number of frames
+    let slider = document.getElementById("IRC_slider1");
+    slider.max = viewer1.getNumFrames();
+  });
+});
+
+
+
+</body>
+
+
+</html>
+
