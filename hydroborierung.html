@@ -6,10 +6,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
     <script>
+	var widgets = {};
+    var widgets2 = {};
 window.onload = function() {
     //Terminal
-    var widgets = {};
-    var widgets2 = {};
+    widgets = {};
+    widgets2 = {};
 
     window.step_frame = function(slider, widgetToUse) {
         let frameNum = parseInt(slider.value);
