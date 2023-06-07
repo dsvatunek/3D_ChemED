@@ -63,7 +63,7 @@ window.onload = function() {
 	<script>
 	window.onload = function() {
     //Terminal
-    var widgets = {};
+    var widgets2 = {};
 
     window.step_frame = function(slider) {
         let frameNum = parseInt(slider.value);
@@ -98,7 +98,7 @@ window.onload = function() {
             viewer1.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
             viewer1.zoomTo();
             viewer1.render();
-            widgets["viewer1"] = viewer1;
+            widgets2["viewer1"] = viewer1;
 
             // Viewer 2 (space filling)
             var viewer2 = viewers[0][1];
@@ -106,7 +106,7 @@ window.onload = function() {
             viewer2.setStyle({}, {sphere: {}});
             viewer2.zoomTo();
             viewer2.render();
-            widgets["viewer2"] = viewer2;
+            widgets2["viewer2"] = viewer2;
             
             // Set the max slider value to the number of frames
             let slider = document.getElementById("IRC_slider2");
