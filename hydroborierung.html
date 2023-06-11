@@ -109,19 +109,26 @@ window.onload = function() {
 <body>
     <div class="main-container">
         <h1>Hydroboration at terminal carbon</h1>
-
+        <div class="logo">
+            <img src="public/terminal.svg" alt="Logo DIMENSIONS" width="400"/>
+        </div>
         <div class="molecule-model">
             <div id="IRC_terminal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
-            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider1" oninput="step_frame(this, widgets);" style="width: 400px;">
-            <div><p class="small-font">.</p>
+            <p></p>
+			<input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider1" oninput="step_frame(this, widgets);" style="width: 400px;">
+            <div><p class="small-font">Reaction at the terminal carbon is sterically less hindered.</p>
             </div>
         </div>
 		<p> </p>
 		<h1>Hydroboration at internal carbon</h1>
+		<div class="logo">
+            <img src="public/internal.svg" alt="Logo DIMENSIONS" width="400"/>
+        </div>
 		<div class="molecule-model">
             <div id="IRC_internal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
-            <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider2" oninput="step_frame(this, widgets2);" style="width: 400px;">
-            <div><p class="small-font">.</p>
+            <p></p>
+			<input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider2" oninput="step_frame(this, widgets2);" style="width: 400px;">
+            <div><p class="small-font">The transition state of this reaction is calculated to be 3.3 kcal/mol higher than for the other addition (~0.004 times as reactive).</p>
             </div>
         </div>
         
@@ -132,7 +139,8 @@ window.onload = function() {
         </div>
         <h3>Dr. Dennis Svatunek</h3>
         <h3><a href="https://www.dsvatunek.com/">dsvatunek.com</a></h3>
-        <p>Dies ist ein Test für eine bessere 3D Visualisierung in der organischen Chemie. Probleme, Anregungen oder Feedback bitte an Dennis Svatunek richten.</p>
+        <p>This website serves as a testing platform for incorporating interactive 3D animations into chemistry education. If you have any concerns, interests, suggestions, or encounter any problems, please do not hesitate to reach out to Dennis Svatunek.
+<br>The animations are computed using the B3LYP functional with a 3-21G basis set in Gaussian 16, executed on Hyperion.</p>
     </div>
 </body>
 </html>
