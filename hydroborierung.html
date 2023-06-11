@@ -41,11 +41,6 @@ window.onload = function() {
             { backgroundColor: 'lightgrey' }
             );
 			
-			let set = {
-				interval: 50,
-				animation: 'reverse',
-			}
-
             // Viewer 1 (sticks and balls)
             var viewer1 = viewers[0][0];
             viewer1.addModelsAsFrames(data, 'xyz');
@@ -113,9 +108,13 @@ window.onload = function() {
 
 <body>
     <div class="main-container">
+	    <div class="logo">
+            <img src="public/logo.svg" alt="QR code" width="400"/>
+        </div>
+		<hr>
         <h1>Hydroboration at terminal carbon</h1>
         <div class="logo">
-            <img src="public/terminal.svg" alt="Logo DIMENSIONS" width="800"/>
+            <img src="public/terminal.svg" alt="reaction at terminal" width="800"/>
         </div>
         <div class="molecule-model">
             <div id="IRC_terminal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
@@ -127,7 +126,7 @@ window.onload = function() {
 		<p> </p>
 		<h1>Hydroboration at internal carbon</h1>
 		<div class="logo">
-            <img src="public/internal.svg" alt="Logo DIMENSIONS" width="800"/>
+            <img src="public/internal.svg" alt="reaction at internal" width="800"/>
         </div>
 		<div class="molecule-model">
             <div id="IRC_internal" class="mol_container" style="height: 500px; width: 1000px; position: relative"></div>
