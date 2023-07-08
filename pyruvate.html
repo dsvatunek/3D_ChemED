@@ -54,24 +54,16 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
 	<script>
-	$(document).ready(function() {
-		$('.mol_container').each(function () {
-			var pdbId = $(this).data('file');
-			var viewer = $3Dmol.createViewer($(this).attr('id'));
-
-			$3Dmol.download(pdbId, viewer, {}, function() {
-				viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
-				viewer.setBackgroundColor(0xd3d3d3);
-				viewer.addSurface($3Dmol.SurfaceType.VDW, {
-					opacity:0.5,
-					color:'white'
-				}, {chain: 'A'});
-				viewer.zoomTo();
+	$(document).ready(function(){
+		$('.mol_container').each(function() {
+			var pdbId = $(this).data('file').split(':')[1];
+			var viewer = $3Dmol.createViewer($(this), {defaultcolors: $3Dmol.rasmolElementColors});
+			viewer.setBackgroundColor(0xffffff);
+			$3Dmol.download('pdb:' + pdbId, viewer, function() {
 				viewer.render();
 			});
-
-			viewer.setStyle({hetflag: true}, {stick: {}});
-			viewer.setStyle({hetflag: true}, {sphere: {}});
+			viewer.zoomTo();
+			viewer.rotate(90, { x : 0, y : 1, z : 0 });
 			viewer.render();
 		});
 	});
