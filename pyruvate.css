@@ -44,6 +44,13 @@ h1, h2 {
     align-items: center;
 }
 
+.half-width.text-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .flex-container {
     width: 100%;
     display: flex;
