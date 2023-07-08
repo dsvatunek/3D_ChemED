@@ -58,12 +58,12 @@
 			var viewer = $3Dmol.createViewer($(this).attr('id'));
 
 			$3Dmol.download(pdbId, viewer, {}, function() {
-				viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
+				viewer.setStyle({cartoon: {color: 'spectrum'}});
 				viewer.setBackgroundColor(0xd3d3d3);
 				viewer.addSurface($3Dmol.SurfaceType.VDW, {
 					opacity:0.5,
 					color:'white'
-				}, {chain: 'A'});
+				});
 				viewer.zoomTo();
 				viewer.render();
 			});
