@@ -52,39 +52,28 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
-    <script>
-	
-	
+	<script>
 	$(document).ready(function() {
+		$('.mol_container').each(function () {
+			var pdbId = $(this).data('file');
+			var viewer = $3Dmol.createViewer($(this).attr('id'));
 
-		// Fetch the PDB file name from data-file attribute
-		var pdbFile = document.querySelector('.mol_container').dataset.file;
-		
-		var viewer = $3Dmol.createViewer(pdbFile, {defaultcolors : $3Dmol.rasmolElementColors}); 
+			$3Dmol.download(pdbId, viewer, {}, function() {
+				viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
+				viewer.setBackgroundColor(0xd3d3d3);
+				viewer.addSurface($3Dmol.SurfaceType.VDW, {
+					opacity:0.5,
+					color:'white'
+				}, {chain: 'A'});
+				viewer.zoomTo();
+				viewer.render();
+			});
 
-		// Load the PDB file
-		$3Dmol.download(pdbFile, viewer, {}, function() {
-			// Visualize the protein with a cartoon representation
-			viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
-			viewer.setBackgroundColor(0xd3d3d3);
-			// Add a transparent surface
-			viewer.addSurface($3Dmol.SurfaceType.VDW, {
-				opacity:0.5,
-				color:'white'
-			}, {chain: 'A'});
-			// Render the viewer
-			viewer.zoomTo();
+			viewer.setStyle({hetflag: true}, {stick: {}});
+			viewer.setStyle({hetflag: true}, {sphere: {}});
 			viewer.render();
 		});
-
-		// Visualize the ligand with a ball-and-stick representation
-		viewer.setStyle({hetflag: true}, {stick: {}});
-		viewer.setStyle({hetflag: true}, {sphere: {}});
-		viewer.render();
 	});
-	
-	
-	
 	</script>
 
 </body>
