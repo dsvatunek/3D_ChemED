@@ -65,10 +65,8 @@ p.small-font {
 .main-container {
     max-width: 1000px;
     margin: auto;
-    align-items: center; 
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between; 
+    flex-direction: column;
 }
 
 .full-width {
