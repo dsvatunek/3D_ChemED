@@ -58,7 +58,7 @@
 			var pdbId = $(this).data('file');
 			var viewer = $3Dmol.createViewer($(this).attr('id'));
 
-			$3Dmol.download('pdb:1ABC', viewer, {}, function() {
+			$3Dmol.download(pdbId, viewer, {}, function() {
 				viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
 				viewer.setBackgroundColor(0xd3d3d3);
 				viewer.addSurface($3Dmol.SurfaceType.VDW, {
