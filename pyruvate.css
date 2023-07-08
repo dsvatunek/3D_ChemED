@@ -46,11 +46,11 @@ h1, h2 {
 
 .half-width.text-section {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* This controls vertical alignment */
+    justify-content: flex-start; /* This controls horizontal alignment */
     flex-direction: column;
+    text-align: left; /* This controls text alignment */
 }
-
 .flex-container {
     width: 100%;
     display: flex;
