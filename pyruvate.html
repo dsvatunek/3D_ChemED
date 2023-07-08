@@ -38,7 +38,7 @@
 			<p><b>E2:</b> Der Acetylrest wird an dem langen Arm des Liponamids auf Coenzym A übertragen. Es entstehen <b>Acetyl-CoA</b> und <b>Dihydroliponamid</b>.</p>
 			</div>	
 			<div class="half-width">
-			<div id="E2" class="mol_container" style="height: 450px; width: 450px;" data-file="pdb:6CT0"></div>
+			<div id="E2" class="mol_container" style="height: 450px; width: 450px; position: relative" data-file="pdb:6CT0"></div>
 			</div>	
 			<div class="half-width">
 			<p><b>E1:</b> Decarboxylierung von Pyruvat unter Bildung des Hydroxyethyl-thiaminpyrophosphat (HO-TPP) und CO2. HO-TPP wird auf Liponamid übertragen und bildet <b>Acetylliponamid</b>.</p>
@@ -54,16 +54,25 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
 	<script>
-	$(document).ready(function(){
-		$('.mol_container').each(function() {
-			var pdbId = $(this).data('file').split(':')[1];
-			var viewer = $3Dmol.createViewer($(this), {defaultcolors: $3Dmol.rasmolElementColors});
-			viewer.setBackgroundColor(0xffffff);
-			$3Dmol.download('pdb:' + pdbId, viewer, function() {
+	var widgets = {};
+	$(document).ready(function() {
+		$('.mol_container').each(function () {
+			var pdbId = $(this).data('file');
+			var viewer = $3Dmol.createViewer($(this).attr('id'));
+
+			$3Dmol.download(pdbId, viewer, {}, function() {
+				viewer.setStyle({chain: 'A'}, {cartoon: {color: 'spectrum'}});
+				viewer.setBackgroundColor(0xd3d3d3);
+				viewer.addSurface($3Dmol.SurfaceType.VDW, {
+					opacity:0.5,
+					color:'white'
+				}, {chain: 'A'});
+				viewer.zoomTo();
 				viewer.render();
 			});
-			viewer.zoomTo();
-			viewer.rotate(90, { x : 0, y : 1, z : 0 });
+
+			viewer.setStyle({hetflag: true}, {stick: {}});
+			viewer.setStyle({hetflag: true}, {sphere: {}});
 			viewer.render();
 		});
 	});
