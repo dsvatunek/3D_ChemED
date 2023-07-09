@@ -23,11 +23,10 @@
 			$.get(pdbPath, function(data) {
 				var viewer = $3Dmol.createViewer(element.attr('id'));
 				viewer.addModel(data, "pdb");
-				viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
 				viewer.setBackgroundColor(0xd3d3d3);
 				viewer.addSurface($3Dmol.SurfaceType.VDW, {
-					opacity:0.5,
-					color:'white'
+					opacity:1,
+					color:'green'
 				});
 				viewer.zoomTo();
 				viewer.render();
