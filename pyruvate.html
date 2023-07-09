@@ -76,9 +76,10 @@
 	$(document).ready(function() {
 		$('.mol_container').each(function () {
 			var pdbPath = $(this).data('file');
+			var element = $(this);  // save a reference to the DOM element
 			
 			$.get(pdbPath, function(data) {
-				var viewer = $3Dmol.createViewer($(this).attr('id'));
+				var viewer = $3Dmol.createViewer(element.attr('id'));
 				viewer.addModel(data, "pdb");
 				viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
 				viewer.setBackgroundColor(0xd3d3d3);
@@ -88,12 +89,11 @@
 				});
 				viewer.zoomTo();
 				viewer.render();
-				widgets[$(this).attr('id')] = viewer;
+				widgets[element.attr('id')] = viewer;
 			});
 		});
 	});
 	</script>
-
 
 
 </body>
