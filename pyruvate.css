@@ -51,6 +51,12 @@ h1, h2 {
     flex-direction: column;
     text-align: left; /* This controls text alignment */
 }
+
+.half-width.text-section p {
+    text-align: left;
+    width: 100%;
+}
+
 .flex-container {
     width: 100%;
     display: flex;
