@@ -23,11 +23,12 @@
 			$.get(pdbPath, function(data) {
 				var viewer = $3Dmol.createViewer(element.attr('id'));
 				viewer.addModel(data, "pdb");
+				viewer.setStyle({}, {cartoon});
 				viewer.setBackgroundColor(0xd3d3d3);
-				viewer.addSurface($3Dmol.SurfaceType.VDW, {
-					opacity:1,
-					color:'green'
-				});
+				//viewer.addSurface($3Dmol.SurfaceType.VDW, {
+				//	opacity:1,
+				//	color:'white'
+				//});
 				viewer.zoomTo();
 				viewer.render();
 				widgets[element.attr('id')] = viewer;
