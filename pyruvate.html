@@ -32,7 +32,7 @@
 			<div id="E1" class="mol_container" style="height: 450px; width: 450px; position: relative" data-file="public/1W85.pdb"></div>
 			</div>	
 			<div class="half-width text-section">
-			<p><b>E1:</b> Decarboxylierung von Pyruvat unter Bildung des Hydroxyethyl-thiaminpyrophosphat (HO-TPP) und CO2. HO-TPP wird auf Liponamid übertragen und bildet <b>Acetylliponamid</b>.</p>
+			<p><b>E1:</b> Decarboxylierung von Pyruvat unter Bildung des Hydroxyethyl-thiaminpyrophosphat (HO-TPP) und CO<sub>2</sub>. HO-TPP wird auf Liponamid übertragen und bildet <b>Acetylliponamid</b>.</p>
 			</div>
 			<div class="half-width text-section">
 			<p><b>E2:</b> Der Acetylrest wird an dem langen Arm des Liponamids auf Coenzym A übertragen. Es entstehen <b>Acetyl-CoA</b> und <b>Dihydroliponamid</b>.</p>
@@ -74,21 +74,20 @@
 		$('.mol_container').each(function () {
 			var pdbPath = $(this).data('file');
 			var viewer = $3Dmol.createViewer($(this).attr('id'));
-
-			$3Dmol.download("pdb:" + pdbPath, viewer, {}, function() {
-				viewer.setStyle({cartoon: {color: 'spectrum'}});
-				viewer.setBackgroundColor(0xd3d3d3);
-				viewer.addSurface($3Dmol.SurfaceType.VDW, {
+			viewer.addModel(pdbPath, "pdb");
+			viewer.setStyle({cartoon: {color: 'spectrum'}});
+			viewer.setBackgroundColor(0xd3d3d3);
+			viewer.addSurface($3Dmol.SurfaceType.VDW, {
 					opacity:0.5,
 					color:'white'
-				});
-				viewer.zoomTo();
-				viewer.render();
+			});
+			viewer.zoomTo();
+			viewer.render();
 			});
 
 			//viewer.setStyle({hetflag: true}, {stick: {}});
 			//viewer.setStyle({hetflag: true}, {sphere: {}});
-			viewer.render();
+			//viewer.render();
 		});
 	});
 	</script>
