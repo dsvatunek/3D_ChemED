@@ -79,10 +79,10 @@
 			viewer.addModel(pdbPath, "pdb");
 			viewer.setStyle({cartoon: {color: 'spectrum'}});
 			viewer.setBackgroundColor(0xd3d3d3);
-			viewer.addSurface($3Dmol.SurfaceType.VDW, {
-					opacity:0.5,
-					color:'white'
-			});
+			//viewer.addSurface($3Dmol.SurfaceType.VDW, {
+			//		opacity:0.5,
+			//		color:'white'
+			//});
 			viewer.zoomTo();
 			viewer.render();
 		});
