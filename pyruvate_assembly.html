@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pyruvate Dehydrogenase Complex</title>
+    <link rel="stylesheet" href="pyruvate.css">
+</head>
+
+<body>
+   	<div id="E1" class="mol_container2" style="height: 450px; width: 450px; position: relative" data-file="public/6CT0_assembly.pdb"></div>
+
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>	
+
+	<script>
+	var widgets = {};
+
+	$(document).ready(function() {
+		$('.mol_container').each(function () {
+			var pdbPath = $(this).data('file');
+			var element = $(this);  // save a reference to the DOM element
+			
+			$.get(pdbPath, function(data) {
+				var viewer = $3Dmol.createViewer(element.attr('id'));
+				viewer.addModel(data, "pdb");
+				viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+				viewer.setBackgroundColor(0xd3d3d3);
+				viewer.addSurface($3Dmol.SurfaceType.VDW, {
+					opacity:0.5,
+					color:'white'
+				});
+				viewer.zoomTo();
+				viewer.render();
+				widgets[element.attr('id')] = viewer;
+			});
+		});
+	});
+	</script>
+
+
+</body>
+
+
+</html>
