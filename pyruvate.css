@@ -79,3 +79,13 @@ h1, h2 {
     justify-content: center;
     align-items: center;
 }
+
+.images-container {
+    display: flex;
+    justify-content: space-between; /* or center, flex-start, flex-end */
+    align-items: center; /* or flex-start, flex-end */
+}
+
+.image {
+    flex: 1; /* to ensure the images share the available space */
+}
