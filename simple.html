@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Model Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+        <div id="IRC" class="mol_container" style="height: 500px; width: 800px; position: relative"></div>
+		<div id="frameText"></div>
+        <input type="range" min="0" max="110" value="0" class="slider" id="IRC_slider" oninput="step_frame(this, 'IRC');" style="width: 400px;">
+
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+	
+	var widgets = {};
+    
+    function step_frame(slider, viewerID) {
+        let frameNum = parseInt(slider.value); 
+        let viewer = widgets[viewerID];
+        viewer.setFrame(frameNum);
+        viewer.render();
+    }
+	
+	
+	$(document).ready(function(){
+		$.get("public/IRC.xyz", function(data) {
+		
+			let viewer = $3Dmol.createViewer("IRC");
+			let set = {
+				interval: 50,
+				animation: 'forward',
+			}
+			viewer.addModelsAsFrames(data, "xyz");
+			
+			viewer.setBackgroundColor(0x000000);
+			viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+			
+			let selection = {serial: 0};			
+			viewer.zoomTo();
+			viewer.zoom(1.8);
+			viewer.rotate(180, {x: 0, y: 1, z: 0});	// want to have nucleophile to the left.		
+			viewer.render();
+	
+			let slider = document.getElementById("IRC_slider");
+			slider.max = viewer.getNumFrames();
+			
+			widgets["IRC"] = viewer;
+		});
+	}); 
+	</script>
+	
+
+	
+
+
+
+	
+</body>
+</html>
+
